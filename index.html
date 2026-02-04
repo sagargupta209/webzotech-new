@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebzoTech - Best Website Design Company</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .gradient-text {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #ea580c, #f97316);
+      }
+      
+      /* Refined Animated Gradient Background */
+      @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-gradient-bg {
+        background: linear-gradient(-45deg, #fff7ed, #ffffff, #fff1e6, #ffffff, #fff7ed);
+        background-size: 400% 400%;
+        animation: gradient-shift 20s ease infinite;
+      }
+      .dark .animate-gradient-bg {
+        background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #111827);
+        background-size: 400% 400%;
+      }
+
+      /* Mesh Blob Animations */
+      @keyframes blob-movement-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+      }
+      @keyframes blob-movement-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-40px, 40px) scale(1.2); }
+        66% { transform: translate(40px, -20px) scale(0.8); }
+      }
+      .animate-blob-1 {
+        animation: blob-movement-1 12s ease-in-out infinite;
+      }
+      .animate-blob-2 {
+        animation: blob-movement-2 15s ease-in-out infinite alternate;
+      }
+
+      /* Custom Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-delayed {
+        animation: float 7s ease-in-out 2s infinite;
+      }
+      .animate-float-slow {
+        animation: float 8s ease-in-out 1s infinite;
+      }
+      
+      @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 0.8s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes slide-down {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .animate-slide-down {
+        animation: slide-down 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin-slow {
+        animation: spin-slow 12s linear infinite;
+      }
+
+      /* Subtle Pulse Scale Animation for Services */
+      @keyframes pulse-scale {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.15) rotate(5deg); }
+      }
+      .group:hover .group-hover-pulse-scale {
+        animation: pulse-scale 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      }
+
+      /* Nav link underline animation */
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #f97316;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+</head>
+  <body class="transition-colors duration-300">
+    <div id="root"></div>
+  </body>
+</html>
