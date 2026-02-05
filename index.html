@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://picsum.photos">
+
     <!-- Primary SEO Meta Tags -->
     <title>Best Website Design Company | Web Development Agency India | WebzoTech</title>
     <meta name="title" content="Best Website Design Company | Web Development Agency India | WebzoTech">
@@ -98,25 +104,33 @@
     ]
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Play CDN - Using Minified -->
+    <script src="https://cdn.tailwindcss.com?minify=true"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Poppins', 'sans-serif'],
+              sans: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
             },
           },
         },
       }
     </script>
+    <!-- Font with display=swap -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+      /* Prevent invisible text during font load */
       body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
         transition: background-color 0.3s ease, color 0.3s ease;
+        /* Fallback background to avoid stark white flash */
+        background-color: #fff7ed;
       }
+      .dark body { background-color: #111827; }
+
       .gradient-text {
         background-clip: text;
         -webkit-background-clip: text;
@@ -218,6 +232,15 @@
       }
       .nav-link:hover::after {
         width: 100%;
+      }
+      
+      /* Image placeholders to reduce CLS and visual noise */
+      .img-placeholder {
+        background: #f3f4f6;
+        display: block;
+      }
+      .dark .img-placeholder {
+        background: #1f2937;
       }
     </style>
   <script type="importmap">

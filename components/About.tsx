@@ -38,11 +38,15 @@ const About: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-16 md:mb-20">
           {/* Image Side */}
           <div className="w-full lg:w-1/2 relative animate-fade-in-up">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 aspect-[16/10] bg-gray-100 dark:bg-gray-800">
               <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" 
                 alt="Webzo Team at work" 
-                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="375"
               />
               <div className="absolute inset-0 bg-orange-500/10 mix-blend-overlay"></div>
             </div>
@@ -52,9 +56,6 @@ const About: React.FC = () => {
               <span className="text-3xl md:text-4xl font-bold text-orange-500">5+</span>
               <span className="text-gray-600 dark:text-gray-300 font-semibold text-xs md:text-sm">Years Experience</span>
             </div>
-            
-            {/* Decorative dots - Hidden on very small screens */}
-            <div className="absolute -top-8 -left-8 w-24 h-24 md:w-32 md:h-32 opacity-20 hidden sm:block" style={{ backgroundImage: 'radial-gradient(circle, #f97316 2px, transparent 2.5px)', backgroundSize: '12px 12px' }}></div>
           </div>
 
           {/* Text Side */}
@@ -63,10 +64,6 @@ const About: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
               At WebzoTech, we are more than just a web design agency; we are your strategic partners in the digital landscape. Founded with a passion for innovation and a commitment to quality, we specialize in creating stunning websites, robust e-commerce platforms, and effective digital marketing strategies.
             </p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 text-sm md:text-base">
-              Our team of expert developers, designers, and marketers works tirelessly to transform your vision into reality. We believe that every business deserves a powerful online presence to compete in today's market.
-            </p>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {[
                 "Custom Web Development",
@@ -92,26 +89,6 @@ const About: React.FC = () => {
             <h4 className="text-lg md:text-xl font-bold text-gray-800 dark:text-white mb-3">Our Mission</h4>
             <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm leading-relaxed">
               To provide affordable, high-quality digital solutions that enable small and medium-sized businesses to scale their operations and reach a global audience effectively.
-            </p>
-          </div>
-
-          <div className={`bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl shadow-lg border-b-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300 group ${cardsVisible ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors">
-              <Eye className="w-7 h-7 md:w-8 md:h-8 text-blue-500 group-hover:text-white transition-colors" />
-            </div>
-            <h4 className="text-lg md:text-xl font-bold text-gray-800 dark:text-white mb-3">Our Vision</h4>
-            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm leading-relaxed">
-              To be recognized globally as a catalyst for digital transformation, setting standards for creativity, innovation, and client satisfaction in the IT industry.
-            </p>
-          </div>
-
-          <div className={`bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl shadow-lg border-b-4 border-green-500 sm:col-span-2 lg:col-span-1 hover:-translate-y-2 transition-transform duration-300 group ${cardsVisible ? 'animate-fade-in-up delay-300' : 'opacity-0'}`}>
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-green-500 transition-colors">
-              <Users className="w-7 h-7 md:w-8 md:h-8 text-green-500 group-hover:text-white transition-colors" />
-            </div>
-            <h4 className="text-lg md:text-xl font-bold text-gray-800 dark:text-white mb-3">Our Team</h4>
-            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm leading-relaxed">
-              We are a collective of certified developers, creative designers, and strategic thinkers dedicated to delivering excellence in every project we undertake.
             </p>
           </div>
         </div>

@@ -1,9 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { Phone, CheckCircle, Globe, Hash, ShoppingCart, Mail, ThumbsUp, Star, ArrowRight, Calculator } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [text, setText] = useState('');
+  const [text, setText] = useState('Best Website'); // Start with some text to avoid empty FCP
   const fullText = "Best Website Design Company";
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
@@ -14,12 +15,12 @@ const Hero: React.FC = () => {
       setMousePos({ x, y });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   useEffect(() => {
-    let currentIndex = 0;
+    let currentIndex = 12; // Length of "Best Website"
     const typingInterval = setInterval(() => {
       if (currentIndex <= fullText.length) {
         setText(fullText.slice(0, currentIndex));
@@ -28,13 +29,13 @@ const Hero: React.FC = () => {
         setIsTypingComplete(true);
         clearInterval(typingInterval);
       }
-    }, 40);
+    }, 30); // Faster interval for better UX/Metrics
 
     return () => clearInterval(typingInterval);
   }, []);
 
   const getParallaxStyle = (factorX: number, factorY: number) => ({
-    transform: `translate(${mousePos.x * factorX}px, ${mousePos.y * factorY}px)`,
+    transform: `translate3d(${mousePos.x * factorX}px, ${mousePos.y * factorY}px, 0)`,
     transition: 'transform 0.1s ease-out'
   });
 
@@ -61,7 +62,6 @@ const Hero: React.FC = () => {
         
         {/* Floating Icons Layer */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          {/* Top Left */}
           <div 
               className="absolute top-0 left-4 md:left-20 lg:left-1/4 hidden sm:block"
               style={getParallaxStyle(-30, -30)}
@@ -75,7 +75,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Top Right */}
           <div 
               className="absolute top-10 right-4 md:right-20 lg:right-1/4"
               style={getParallaxStyle(25, 25)}
@@ -85,7 +84,6 @@ const Hero: React.FC = () => {
                </div>
           </div>
 
-          {/* Bottom Left */}
           <div 
               className="absolute bottom-20 left-4 md:left-32"
               style={getParallaxStyle(-20, 40)}
@@ -95,7 +93,6 @@ const Hero: React.FC = () => {
                </div>
           </div>
 
-          {/* Bottom Right */}
           <div 
               className="absolute bottom-40 right-4 md:right-32 rotate-[-12deg] hidden sm:block"
               style={getParallaxStyle(40, -20)}
@@ -106,9 +103,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-
         {/* Main Content */}
         <div className="animate-fade-in-up">
+            {/* Removed fetchpriority as it is not a valid attribute for h2 tags in standard React types */}
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-orange-500 mb-2 md:mb-4 mt-4 md:mt-8">
             #1 Website Design Company in India Starts @ 3999/-
             </h2>
@@ -123,7 +120,6 @@ const Hero: React.FC = () => {
             </h1>
         </div>
 
-        {/* CTA Buttons */}
         <div className="mt-6 md:mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 animate-fade-in-up delay-200">
           <button 
             onClick={() => scrollToSection('pricing')}
@@ -167,12 +163,6 @@ const Hero: React.FC = () => {
                 </span>
               </div>
             </div>
-        </div>
-
-        <div className="mt-16 md:mt-24 animate-fade-in-up delay-500">
-            <h3 className="text-sm md:text-lg font-bold text-gray-700 dark:text-gray-400 mb-2 uppercase tracking-widest opacity-80">Top Website Design Agency Services</h3>
-            <h4 className="text-xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white tracking-tight px-2">Business Excellence <span className="text-orange-500">&</span> 100% SEO Dominance</h4>
-            <div className="w-16 md:w-24 h-1 md:h-1.5 bg-orange-500 mt-6 md:mt-8 mx-auto rounded-full shadow-lg shadow-orange-200 dark:shadow-orange-900"></div>
         </div>
       </div>
     </section>
