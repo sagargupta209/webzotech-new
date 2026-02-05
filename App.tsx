@@ -1,17 +1,17 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Services from './components/Services';
-import About from './components/About';
-import Pricing from './components/Pricing';
-import Portfolio from './components/Portfolio';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
-import QuotePopup from './components/QuotePopup';
+import Navbar from './components/Navbar.tsx';
+import Hero from './components/Hero.tsx';
+import Features from './components/Features.tsx';
+import Services from './components/Services.tsx';
+import About from './components/About.tsx';
+import Pricing from './components/Pricing.tsx';
+import Portfolio from './components/Portfolio.tsx';
+import Testimonials from './components/Testimonials.tsx';
+import FAQ from './components/FAQ.tsx';
+import Contact from './components/Contact.tsx';
+import Footer from './components/Footer.tsx';
+import Chatbot from './components/Chatbot.tsx';
+import QuotePopup from './components/QuotePopup.tsx';
 
 const App: React.FC = () => {
   return (

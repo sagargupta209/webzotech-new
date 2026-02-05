@@ -4,7 +4,6 @@ import { Phone, CheckCircle, Globe, Hash, ShoppingCart, Mail, ThumbsUp, Star, Ar
 const Hero: React.FC = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [text, setText] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
   const fullText = "Best Website Design Company";
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
@@ -34,13 +33,6 @@ const Hero: React.FC = () => {
     return () => clearInterval(typingInterval);
   }, []);
 
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-    return () => clearInterval(cursorInterval);
-  }, []);
-
   const getParallaxStyle = (factorX: number, factorY: number) => ({
     transform: `translate(${mousePos.x * factorX}px, ${mousePos.y * factorY}px)`,
     transition: 'transform 0.1s ease-out'
@@ -67,9 +59,9 @@ const Hero: React.FC = () => {
 
       <div className="container mx-auto px-4 text-center relative z-10">
         
-        {/* Floating Icons Layer - Restricted on Mobile to avoid clutter */}
+        {/* Floating Icons Layer */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Top Left - Hidden on small mobile */}
+          {/* Top Left */}
           <div 
               className="absolute top-0 left-4 md:left-20 lg:left-1/4 hidden sm:block"
               style={getParallaxStyle(-30, -30)}
@@ -103,7 +95,7 @@ const Hero: React.FC = () => {
                </div>
           </div>
 
-          {/* Bottom Right - Hidden on small mobile */}
+          {/* Bottom Right */}
           <div 
               className="absolute bottom-40 right-4 md:right-32 rotate-[-12deg] hidden sm:block"
               style={getParallaxStyle(40, -20)}
@@ -125,9 +117,6 @@ const Hero: React.FC = () => {
         <div className="min-h-[90px] md:min-h-[140px] flex items-center justify-center px-2">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4 max-w-4xl mx-auto drop-shadow-sm">
             {text}
-            <span 
-              className={`inline-block w-1 h-6 sm:h-8 md:h-10 bg-orange-500 ml-1 align-middle transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
-            ></span>
              <span className={`inline-block transition-all duration-700 ease-out transform ${isTypingComplete ? 'opacity-100 scale-100 w-auto ml-1 md:ml-2' : 'opacity-0 scale-0 w-0 overflow-hidden'}`}>
                  <CheckCircle className="inline text-green-500 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 align-middle" />
              </span>

@@ -40,12 +40,22 @@ const Portfolio: React.FC = () => {
   const maxIndex = Math.max(0, filteredProjects.length - itemsPerPage);
 
   const nextSlide = () => {
-    setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => Math.max(prev - 1, 0));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
+
+  // Auto-slide effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (maxIndex > 0) {
+        nextSlide();
+      }
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [currentIndex, maxIndex, filter]);
 
   return (
     <section id="portfolio" className="py-16 md:py-20 bg-orange-50/50">
@@ -85,26 +95,20 @@ const Portfolio: React.FC = () => {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-0 md:px-8 group">
-                {maxIndex > 0 && (
-                  <>
-                    <button 
-                        onClick={prevSlide}
-                        disabled={currentIndex === 0}
-                        className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl text-gray-700 border-2 border-orange-100 transition-all duration-300 items-center justify-center opacity-0 group-hover:opacity-100 ${currentIndex === 0 ? 'opacity-0 cursor-not-allowed' : 'hover:bg-orange-500 hover:text-white hover:border-orange-500 hover:scale-110 cursor-pointer'}`}
-                        aria-label="Previous project"
-                    >
-                        <ChevronLeft size={28} />
-                    </button>
-                    <button 
-                        onClick={nextSlide}
-                        disabled={currentIndex === maxIndex}
-                        className={`hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl text-gray-700 border-2 border-orange-100 transition-all duration-300 items-center justify-center opacity-0 group-hover:opacity-100 ${currentIndex === maxIndex ? 'opacity-0 cursor-not-allowed' : 'hover:bg-orange-500 hover:text-white hover:border-orange-500 hover:scale-110 cursor-pointer'}`}
-                        aria-label="Next project"
-                    >
-                        <ChevronRight size={28} />
-                    </button>
-                  </>
-                )}
+                <button 
+                    onClick={prevSlide}
+                    className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl text-gray-700 border-2 border-orange-100 transition-all duration-300 items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-orange-500 hover:text-white hover:border-orange-500 hover:scale-110 cursor-pointer`}
+                    aria-label="Previous project"
+                >
+                    <ChevronLeft size={28} />
+                </button>
+                <button 
+                    onClick={nextSlide}
+                    className={`hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl text-gray-700 border-2 border-orange-100 transition-all duration-300 items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-orange-500 hover:text-white hover:border-orange-500 hover:scale-110 cursor-pointer`}
+                    aria-label="Next project"
+                >
+                    <ChevronRight size={28} />
+                </button>
 
                 <div className="overflow-hidden py-8 -my-8 px-2">
                     <div 
@@ -148,22 +152,20 @@ const Portfolio: React.FC = () => {
                     </div>
                 </div>
 
-                {maxIndex > 0 && (
-                    <div className="flex justify-center gap-2 mt-8">
-                        {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setCurrentIndex(idx)}
-                                className={`transition-all duration-300 rounded-full h-2.5 ${
-                                    currentIndex === idx 
-                                        ? 'w-8 bg-orange-500' 
-                                        : 'w-2.5 bg-gray-300 hover:bg-orange-300'
-                                }`}
-                                aria-label={`Go to project slide ${idx + 1}`}
-                            />
-                        ))}
-                    </div>
-                )}
+                <div className="flex justify-center gap-2 mt-8">
+                    {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentIndex(idx)}
+                            className={`transition-all duration-300 rounded-full h-2.5 ${
+                                currentIndex === idx 
+                                    ? 'w-8 bg-orange-500' 
+                                    : 'w-2.5 bg-gray-300 hover:bg-orange-300'
+                            }`}
+                            aria-label={`Go to project slide ${idx + 1}`}
+                        />
+                    ))}
+                </div>
             </div>
 
             <div className="mt-16 md:mt-20">

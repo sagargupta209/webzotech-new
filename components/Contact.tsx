@@ -1,12 +1,37 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, Mail, X, CheckCircle, Send, MapPin } from 'lucide-react';
+import { Phone, MessageCircle, Mail, X, CheckCircle, Send, MapPin, Loader2 } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsModalOpen(true);
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("_replyto", "sagargupta1153@gmail.com");
+
+    try {
+      const response = await fetch("https://formspree.io/f/mqakevlv", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsModalOpen(true);
+        (e.target as HTMLFormElement).reset();
+      } else {
+        alert("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -33,6 +58,7 @@ const Contact: React.FC = () => {
                             <label htmlFor="name" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Name <span className="text-red-500" aria-hidden="true">*</span></label>
                             <input 
                                 id="name"
+                                name="name"
                                 type="text" 
                                 required 
                                 placeholder="Your Name" 
@@ -44,6 +70,7 @@ const Contact: React.FC = () => {
                             <label htmlFor="email" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Email <span className="text-red-500" aria-hidden="true">*</span></label>
                             <input 
                                 id="email"
+                                name="email"
                                 type="email" 
                                 required 
                                 placeholder="Enter Your Email" 
@@ -60,6 +87,7 @@ const Contact: React.FC = () => {
                             </div>
                             <input 
                                 id="phone"
+                                name="phone"
                                 type="tel" 
                                 required 
                                 placeholder="98*******76" 
@@ -72,6 +100,7 @@ const Contact: React.FC = () => {
                         <label htmlFor="message" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Message <span className="text-red-500" aria-hidden="true">*</span></label>
                         <textarea 
                             id="message"
+                            name="message"
                             required 
                             placeholder="Tell us about your project requirements..." 
                             rows={4}
@@ -83,26 +112,35 @@ const Contact: React.FC = () => {
                         <legend className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">Service Required <span className="text-red-500" aria-hidden="true">*</span></legend>
                         <div className="grid grid-cols-2 gap-2">
                             <label className="flex items-center gap-2 cursor-pointer bg-orange-50/30 dark:bg-gray-700/30 p-2 rounded-lg border border-transparent hover:border-orange-100 dark:hover:border-gray-600 transition-colors">
-                                <input type="radio" name="service" className="accent-orange-500" defaultChecked />
+                                <input type="radio" name="service" value="Business Website" className="accent-orange-500" defaultChecked />
                                 <span className="text-xs font-bold text-gray-700 dark:text-gray-300">Business Website</span>
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer bg-orange-50/30 dark:bg-gray-700/30 p-2 rounded-lg border border-transparent hover:border-orange-100 dark:hover:border-gray-600 transition-colors">
-                                <input type="radio" name="service" className="accent-orange-500" />
+                                <input type="radio" name="service" value="E-Commerce Store" className="accent-orange-500" />
                                 <span className="text-xs font-bold text-gray-700 dark:text-gray-300">E-Commerce Store</span>
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer bg-orange-50/30 dark:bg-gray-700/30 p-2 rounded-lg border border-transparent hover:border-orange-100 dark:hover:border-gray-600 transition-colors">
-                                <input type="radio" name="service" className="accent-orange-500" />
+                                <input type="radio" name="service" value="Digital Marketing" className="accent-orange-500" />
                                 <span className="text-xs font-bold text-gray-700 dark:text-gray-300">Digital Marketing</span>
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer bg-orange-50/30 dark:bg-gray-700/30 p-2 rounded-lg border border-transparent hover:border-orange-100 dark:hover:border-gray-600 transition-colors">
-                                <input type="radio" name="service" className="accent-orange-500" />
+                                <input type="radio" name="service" value="Other Support" className="accent-orange-500" />
                                 <span className="text-xs font-bold text-gray-700 dark:text-gray-300">Other Support</span>
                             </label>
                         </div>
                     </fieldset>
 
-                    <button type="submit" className="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1 transition-all flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        <Send size={18} className="fill-current" aria-hidden="true" /> Send Message
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1 transition-all flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-70"
+                    >
+                        {isSubmitting ? (
+                          <Loader2 className="animate-spin" size={18} />
+                        ) : (
+                          <Send size={18} className="fill-current" aria-hidden="true" />
+                        )}
+                        Send Message
                     </button>
                 </form>
             </div>

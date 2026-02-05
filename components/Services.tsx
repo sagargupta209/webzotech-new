@@ -53,6 +53,16 @@ const Services: React.FC = () => {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
+  // Auto-slide effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (maxIndex > 0) {
+        nextSlide();
+      }
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [currentIndex, maxIndex]);
+
   return (
     <section id="services" className="py-16 md:py-20 bg-white dark:bg-gray-900 select-none transition-colors duration-300">
       <div className="container mx-auto px-4">

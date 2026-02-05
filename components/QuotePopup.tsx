@@ -1,112 +1,135 @@
 import React, { useState, useEffect } from 'react';
-import { X, Send, CheckCircle } from 'lucide-react';
+import { X, Send, CheckCircle, Loader2 } from 'lucide-react';
 
 const QuotePopup: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isVisible, setIsVisible] = useState(false); // For animation state
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already seen the popup in previous sessions
     const hasSeenPopup = localStorage.getItem('hasSeenQuotePopup');
-    
     if (!hasSeenPopup) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-        // Small delay to allow render before animation starts for smooth transition
         requestAnimationFrame(() => setIsVisible(true));
-      }, 5000); // 5 seconds delay
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(() => setIsOpen(false), 300); // Wait for fade-out animation
+    setTimeout(() => setIsOpen(false), 300);
     localStorage.setItem('hasSeenQuotePopup', 'true');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    // In a real application, you would send the form data to your backend here
-    setTimeout(() => {
-        handleClose();
-    }, 2500);
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("_replyto", "sagargupta1153@gmail.com");
+    formData.append("_subject", "New Quote Request from WebzoTech Popup");
+
+    try {
+      // Using Formspree for easy email delivery to the user's specific email
+      const response = await fetch("https://formspree.io/f/mqakevlv", { // Note: In production, user should create their own ID
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => handleClose(), 3000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <div 
-        className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300 ${isVisible ? 'bg-black/60 opacity-100 backdrop-blur-sm' : 'bg-black/0 opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300 ${isVisible ? 'bg-black/80 opacity-100 backdrop-blur-md' : 'bg-black/0 opacity-0 pointer-events-none'}`}
         aria-modal="true"
         role="dialog"
     >
       <div 
-        className={`bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden transform transition-all duration-300 border border-orange-100 dark:border-gray-700 ${isVisible ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-8 opacity-0'}`}
+        className={`bg-[#1e293b] rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden transform transition-all duration-300 border border-white/10 ${isVisible ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-8 opacity-0'}`}
       >
         
-        {/* Header decoration */}
-        <div className="h-1.5 bg-gradient-to-r from-orange-400 to-orange-600 w-full absolute top-0 left-0 z-10"></div>
+        {/* Top Border Accent */}
+        <div className="h-1.5 bg-[#f97316] w-full absolute top-0 left-0 z-10"></div>
 
         <button 
             onClick={handleClose}
-            className="absolute top-4 right-4 z-20 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition focus:outline-none bg-gray-100 dark:bg-gray-700 rounded-full p-1.5 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="absolute top-4 right-4 z-20 text-gray-400 hover:text-white transition focus:outline-none bg-white/5 rounded-full p-1.5 hover:bg-white/10"
             aria-label="Close popup"
         >
             <X size={18} />
         </button>
 
-        <div className="p-6 sm:p-8">
+        <div className="p-6 sm:p-8 pt-10">
             {isSubmitted ? (
-                <div className="flex flex-col items-center text-center py-6">
-                    <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4 animate-bounce">
+                <div className="flex flex-col items-center text-center py-6 animate-fade-in-up">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4">
                         <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Request Received!</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">Thank you for your interest.</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Our team will contact you shortly.</p>
+                    <h3 className="text-2xl font-bold text-white mb-2">Request Received!</h3>
+                    <p className="text-gray-300 mb-2">Our team will contact you shortly.</p>
                 </div>
             ) : (
                 <>
-                    <div className="text-center mb-6">
-                        <span className="inline-block py-1 px-3 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold tracking-wider mb-3">
+                    <div className="text-center mb-8">
+                        <span className="inline-block py-1.5 px-4 rounded-full bg-[#334155] text-[#f97316] text-[10px] font-extrabold tracking-widest mb-4">
                             LIMITED TIME OFFER
                         </span>
-                        <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Get a Free Quote</h3>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            Drop your details below to get an exclusive <span className="text-orange-500 font-bold">20% discount</span> on your first project!
+                        <h3 className="text-3xl font-bold text-white mb-3">Get a Free Quote</h3>
+                        <p className="text-gray-300 text-sm leading-relaxed px-2">
+                            Drop your details below to get an exclusive <br/>
+                            <span className="text-[#f97316] font-bold">20% discount</span> on your first project!
                         </p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-3">
                             <input 
+                                name="name"
                                 type="text" 
                                 required 
                                 placeholder="Full Name" 
-                                className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-sm dark:text-white outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition" 
+                                className="w-full bg-[#334155]/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316] transition placeholder:text-gray-500" 
                             />
                             <input 
+                                name="phone"
                                 type="tel" 
                                 required 
                                 placeholder="Phone Number" 
-                                className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-sm dark:text-white outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition" 
+                                className="w-full bg-[#334155]/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316] transition placeholder:text-gray-500" 
                             />
                              <div className="relative">
                                 <select 
-                                    className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-sm dark:text-white outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition appearance-none cursor-pointer text-gray-600 dark:text-gray-300"
+                                    name="service"
+                                    className="w-full bg-[#334155]/50 border border-[#f97316] rounded-xl p-4 text-sm text-white outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316] transition appearance-none cursor-pointer"
                                     defaultValue=""
                                     required
                                 >
                                     <option value="" disabled>Select Service Required</option>
-                                    <option value="business">Business Website</option>
-                                    <option value="ecommerce">E-Commerce Store</option>
-                                    <option value="marketing">Digital Marketing</option>
-                                    <option value="other">Other / Custom</option>
+                                    <option value="Business Website">Business Website</option>
+                                    <option value="E-Commerce Store">E-Commerce Store</option>
+                                    <option value="Digital Marketing">Digital Marketing</option>
+                                    <option value="Custom Software">Custom Software</option>
                                 </select>
-                                <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500">
+                                <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
                                     <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path></svg>
                                 </div>
                              </div>
@@ -114,12 +137,18 @@ const QuotePopup: React.FC = () => {
 
                         <button 
                             type="submit" 
-                            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3.5 rounded-lg font-bold shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2 mt-2"
+                            disabled={isSubmitting}
+                            className="w-full bg-[#f97316] text-white py-4 rounded-xl font-black text-lg shadow-xl hover:bg-[#ea580c] hover:-translate-y-0.5 transition-all flex justify-center items-center gap-3 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            <Send size={18} /> Get My Free Quote
+                            {isSubmitting ? (
+                              <Loader2 className="animate-spin" size={20} />
+                            ) : (
+                              <Send size={20} className="fill-current" />
+                            )}
+                            Get My Free Quote
                         </button>
 
-                         <p className="text-xs text-center text-gray-400 mt-3">
+                         <p className="text-[11px] text-center text-gray-500 mt-6 font-medium">
                             We respect your privacy. No spam guaranteed.
                         </p>
                     </form>
