@@ -25,23 +25,36 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Small logic for scrolled state remains for CSS changes
       setScrolled(window.scrollY > 50);
-
-      const sections = ['home', 'about', 'pricing', 'portfolio', 'reviews', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Replace reflow-heavy logic with IntersectionObserver
+    const sections = ['home', 'about', 'pricing', 'portfolio', 'reviews', 'contact'];
+    const observers = sections.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { threshold: 0.5, rootMargin: '-80px 0px -20% 0px' }
+      );
+      
+      observer.observe(el);
+      return observer;
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observers.forEach(obs => obs?.disconnect());
+    };
   }, []);
 
   const navLinks = [

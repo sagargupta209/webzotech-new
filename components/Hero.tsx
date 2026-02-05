@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Phone, CheckCircle, Globe, Hash, ShoppingCart, Mail, ThumbsUp, Star, ArrowRight, Calculator } from 'lucide-react';
 
@@ -84,8 +83,9 @@ const Hero: React.FC = () => {
                </div>
           </div>
 
+          {/* Hiding Globe icon on mobile */}
           <div 
-              className="absolute bottom-20 left-4 md:left-32"
+              className="absolute bottom-20 left-4 md:left-32 hidden sm:block"
               style={getParallaxStyle(-20, 40)}
           >
                <div className="bg-gray-100 dark:bg-gray-800 p-2 md:p-3 rounded-full shadow-lg animate-float-slow pointer-events-auto border border-white dark:border-gray-700">
@@ -93,6 +93,7 @@ const Hero: React.FC = () => {
                </div>
           </div>
 
+          {/* Hash icon already has hidden sm:block */}
           <div 
               className="absolute bottom-40 right-4 md:right-32 rotate-[-12deg] hidden sm:block"
               style={getParallaxStyle(40, -20)}
@@ -105,7 +106,6 @@ const Hero: React.FC = () => {
 
         {/* Main Content */}
         <div className="animate-fade-in-up">
-            {/* Removed fetchpriority as it is not a valid attribute for h2 tags in standard React types */}
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-orange-500 mb-2 md:mb-4 mt-4 md:mt-8">
             #1 Website Design Company in India Starts @ 3999/-
             </h2>
