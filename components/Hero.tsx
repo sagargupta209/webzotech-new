@@ -49,10 +49,10 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden animate-gradient-bg min-h-[90vh] md:min-h-[95vh] flex flex-col justify-center">
+    <section id="home" className="relative pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden animate-gradient-bg min-h-[90vh] md:min-h-[95vh] flex flex-col justify-center" aria-label="WebzoTech - Best Website Design Agency">
       
       {/* Mesh Gradient Blobs */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute top-[10%] left-[15%] w-[60vw] md:w-[40vw] h-[60vw] md:h-[40vw] bg-orange-200/30 dark:bg-orange-500/10 rounded-full blur-[80px] md:blur-[100px] animate-blob-1"></div>
         <div className="absolute bottom-[10%] right-[15%] w-[50vw] md:w-[35vw] h-[50vw] md:h-[35vw] bg-blue-100/40 dark:bg-blue-900/10 rounded-full blur-[80px] md:blur-[100px] animate-blob-2"></div>
       </div>
@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4 text-center relative z-10">
         
         {/* Floating Icons Layer */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           {/* Top Left */}
           <div 
               className="absolute top-0 left-4 md:left-20 lg:left-1/4 hidden sm:block"
@@ -110,7 +110,7 @@ const Hero: React.FC = () => {
         {/* Main Content */}
         <div className="animate-fade-in-up">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-orange-500 mb-2 md:mb-4 mt-4 md:mt-8">
-            Website Starts @ 3999/-
+            #1 Website Design Company in India Starts @ 3999/-
             </h2>
         </div>
 
@@ -129,20 +129,20 @@ const Hero: React.FC = () => {
             onClick={() => scrollToSection('pricing')}
             className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 md:px-10 py-3.5 rounded-full font-black text-base md:text-lg shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 flex items-center gap-3 border-b-4 border-blue-900 active:border-b-0 active:translate-y-0.5 justify-center group"
           >
-            <Calculator size={20} className="group-hover:rotate-12 transition-transform" /> Get an Estimate
+            <Calculator size={20} className="group-hover:rotate-12 transition-transform" /> Professional Web Design Cost
           </button>
 
           <button 
             onClick={() => scrollToSection('contact')}
             className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 md:px-10 py-3.5 rounded-full font-bold text-base md:text-lg shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 border-b-4 border-orange-700 active:border-b-0 active:translate-y-1 justify-center group"
           >
-            Get a Free Quote <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            Get Expert Consultation <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
         <div className="mt-8 md:mt-10 animate-fade-in-up delay-300">
             <p className="text-gray-700 dark:text-gray-300 font-semibold text-base md:text-lg lg:text-xl max-w-2xl mx-auto px-4">
-            2896+ Businesses Trusted <span className="text-orange-500 underline decoration-2 underline-offset-4">WebzoTech</span> To Build Their Online Success
+            Ranked #1 Website Design Company Trusted by 2896+ Businesses for SEO and Online Growth Strategies
             </p>
         </div>
 
@@ -170,8 +170,8 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="mt-16 md:mt-24 animate-fade-in-up delay-500">
-            <h3 className="text-sm md:text-lg font-bold text-gray-700 dark:text-gray-400 mb-2 uppercase tracking-widest opacity-80">Modern Website Features For</h3>
-            <h4 className="text-xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white tracking-tight px-2">Business <span className="text-orange-500">&</span> E-Commerce</h4>
+            <h3 className="text-sm md:text-lg font-bold text-gray-700 dark:text-gray-400 mb-2 uppercase tracking-widest opacity-80">Top Website Design Agency Services</h3>
+            <h4 className="text-xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white tracking-tight px-2">Business Excellence <span className="text-orange-500">&</span> 100% SEO Dominance</h4>
             <div className="w-16 md:w-24 h-1 md:h-1.5 bg-orange-500 mt-6 md:mt-8 mx-auto rounded-full shadow-lg shadow-orange-200 dark:shadow-orange-900"></div>
         </div>
       </div>
