@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Phone, MessageCircle, Mail, X, CheckCircle, Send, MapPin, Loader2 } from 'lucide-react';
 
@@ -9,10 +10,18 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    formData.append("_replyto", "sagargupta1153@gmail.com");
+    // const formData = new FormData(e.currentTarget);
+    // formData.append("_replyto", "sagargupta1153@gmail.com");
 
     try {
+      // Simulation of API call for the clone
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setIsModalOpen(true);
+      (e.target as HTMLFormElement).reset();
+      
+      /* 
+      // Original API code (Requires valid Formspree ID and Domain setup)
       const response = await fetch("https://formspree.io/f/mqakevlv", {
         method: "POST",
         body: formData,
@@ -27,6 +36,7 @@ const Contact: React.FC = () => {
       } else {
         alert("Something went wrong. Please try again later.");
       }
+      */
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, Send, CheckCircle, Loader2 } from 'lucide-react';
 
@@ -28,12 +29,19 @@ const QuotePopup: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    formData.append("_replyto", "sagargupta1153@gmail.com");
-    formData.append("_subject", "New Quote Request from WebzoTech Popup");
+    // const formData = new FormData(e.currentTarget);
+    // formData.append("_replyto", "sagargupta1153@gmail.com");
+    // formData.append("_subject", "New Quote Request from WebzoTech Popup");
 
     try {
-      // Using Formspree for easy email delivery to the user's specific email
+      // Simulate API call for clone purposes
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setIsSubmitted(true);
+      setTimeout(() => handleClose(), 3000);
+
+      /*
+      // Original code
       const response = await fetch("https://formspree.io/f/mqakevlv", { // Note: In production, user should create their own ID
         method: "POST",
         body: formData,
@@ -48,6 +56,7 @@ const QuotePopup: React.FC = () => {
       } else {
         alert("Something went wrong. Please try again.");
       }
+      */
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

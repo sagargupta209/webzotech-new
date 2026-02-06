@@ -6,6 +6,7 @@ import Services from './components/Services.tsx';
 import About from './components/About.tsx';
 import Pricing from './components/Pricing.tsx';
 import Portfolio from './components/Portfolio.tsx';
+import AdminDemo from './components/AdminDemo.tsx';
 import Testimonials from './components/Testimonials.tsx';
 import FAQ from './components/FAQ.tsx';
 import Contact from './components/Contact.tsx';
@@ -24,6 +25,9 @@ const App: React.FC = () => {
         <About />
         <Pricing />
         <Portfolio />
+        <div id="admin">
+           <AdminDemo />
+        </div>
         <Testimonials />
         <FAQ />
         <Contact />

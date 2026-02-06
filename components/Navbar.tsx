@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     };
 
     // Replace reflow-heavy logic with IntersectionObserver
-    const sections = ['home', 'about', 'pricing', 'portfolio', 'reviews', 'contact'];
+    const sections = ['home', 'about', 'pricing', 'portfolio', 'admin', 'reviews', 'contact'];
     const observers = sections.map(id => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -62,6 +62,7 @@ const Navbar: React.FC = () => {
     { name: 'About Us', href: '#about', id: 'about' },
     { name: 'Pricing', href: '#pricing', id: 'pricing' },
     { name: 'Portfolio', href: '#portfolio', id: 'portfolio' },
+    { name: 'Admin', href: '#admin', id: 'admin' },
     { name: 'Review', href: '#reviews', id: 'reviews' },
     { name: 'Contact Us', href: '#contact', id: 'contact' },
   ];
@@ -115,8 +116,8 @@ const Navbar: React.FC = () => {
               key={link.name}
               href={link.href} 
               onClick={(e) => handleNavClick(e, link.href)}
-              className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 nav-link ${
-                activeSection === link.id ? 'text-orange-500 bg-orange-50 dark:bg-orange-900/20' : 'text-gray-600 dark:text-gray-300 hover:text-orange-500 hover:bg-orange-50/50 dark:hover:bg-orange-900/10'
+              className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105 active:scale-95 nav-link inline-block ${
+                activeSection === link.id ? 'text-orange-500 bg-orange-50 dark:bg-orange-900/20' : 'text-gray-600 dark:text-gray-300 hover:text-orange-600 hover:bg-orange-50/50 dark:hover:bg-orange-900/10'
               }`}
             >
               {link.name}
@@ -190,8 +191,8 @@ const Navbar: React.FC = () => {
             href={link.href} 
             onClick={(e) => handleNavClick(e, link.href)}
             style={{ transitionDelay: `${idx * 50}ms` }}
-            className={`flex items-center justify-between p-4 rounded-2xl text-lg font-bold transition-all ${
-              activeSection === link.id ? 'bg-orange-500 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-800 hover:text-orange-500'
+            className={`flex items-center justify-between p-4 rounded-2xl text-lg font-bold transition-all transform hover:scale-[1.02] active:scale-95 ${
+              activeSection === link.id ? 'bg-orange-500 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-800 hover:text-orange-600'
             }`}
           >
             {link.name}
@@ -202,7 +203,7 @@ const Navbar: React.FC = () => {
         <div className="pt-4 border-t border-gray-100 dark:border-gray-800 mt-4 space-y-4">
           <a 
             href="tel:+918962921153"
-            className="flex items-center justify-center gap-3 bg-gray-50 dark:bg-gray-800 p-4 rounded-2xl font-bold text-gray-700 dark:text-gray-200"
+            className="flex items-center justify-center gap-3 bg-gray-50 dark:bg-gray-800 p-4 rounded-2xl font-bold text-gray-700 dark:text-gray-200 transition-transform hover:scale-[1.02]"
           >
             <Phone size={20} className="text-orange-500" /> +91 8962921153
           </a>
@@ -212,7 +213,7 @@ const Navbar: React.FC = () => {
               if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
               setIsOpen(false);
             }}
-            className="w-full bg-orange-500 text-white p-4 rounded-2xl font-bold shadow-lg shadow-orange-500/30"
+            className="w-full bg-orange-500 text-white p-4 rounded-2xl font-bold shadow-lg shadow-orange-500/30 transition-transform hover:scale-[1.02] active:scale-95"
           >
             GET A FREE QUOTE
           </button>
